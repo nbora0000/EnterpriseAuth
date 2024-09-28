@@ -1,6 +1,6 @@
 using AuthenticationApi.Application.Interface;
 using AuthenticationApi.Application.Service;
-using AuthenticationApi.Infrastructure.AuthenticationApi.Infrastructure.CustomLogic;
+using AuthenticationApi.Infrastructure.CustomLogic;
 using AuthenticationApi.Infrastructure.Data;
 using AuthenticationApi.Infrastructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,7 +16,7 @@ builder.Configuration
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));//builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<JwtToken>();
+builder.Services.AddScoped<SecurityJwtToken>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme=JwtBearerDefaults.AuthenticationScheme;

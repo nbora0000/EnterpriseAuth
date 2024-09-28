@@ -6,17 +6,18 @@ namespace AuthenticationApi.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class AuthTokenController : ControllerBase
+    public class AuthTokenController(IAuthTokenService authTokenService, IConfiguration configuration) : ControllerBase
     {
-        private readonly IAuthTokenService _authTokenService;
-        private readonly IConfiguration _configuration;
-        public AuthTokenController(IAuthTokenService authTokenService, IConfiguration configuration)
-        {
-            _authTokenService = authTokenService;
-            _configuration = configuration;
-        }
-        [HttpPost("GenerateToken")]
+        private readonly IAuthTokenService _authTokenService = authTokenService;
+        private readonly IConfiguration _configuration = configuration;
+
         public IActionResult GetToken([FromBody] KeySecret secret)
+        {
+            return GetToken(secret, _authTokenService);
+        }
+
+        [HttpPost("GenerateToken")]
+        public IActionResult GetToken([FromBody] KeySecret secret, IAuthTokenService _authTokenService)
         {
             try
             {
@@ -25,7 +26,7 @@ namespace AuthenticationApi.Controllers
                 {
                     return BadRequest("Incorrect Payload");
                 }
-                JwtToken jwtToken = new JwtToken
+                JwtToken jwtToken = new()
                 {
                     Token = token,
                     TokenIssueTime = DateTime.UtcNow.ToString(),

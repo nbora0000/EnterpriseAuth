@@ -1,21 +1,19 @@
 ﻿using AuthenticationApi.Domain;
 using AuthenticationApi.Application.Interface;
-namespace AuthenticationApi.Application.Service { 
-public class AuthTokenService :IAuthTokenService
+using AuthenticationApi.Domain.Data;
+namespace AuthenticationApi.Application.Service
 {
-    private readonly IAuthTokenRepository _authTokenRepository;
-    public AuthTokenService(IAuthTokenRepository authTokenRepository)
+    public class AuthTokenService(IAuthTokenRepository authTokenRepository) : IAuthTokenService
     {
-        _authTokenRepository = authTokenRepository;
-    }
-    public KeySecret GenerateSecret(string AudId)
-    {
-        return _authTokenRepository.GenerateSecret(AudId);
-    }
-    public  string GenerateToken(KeySecret secret)
-    {
-        return _authTokenRepository.GenerateToken(secret);
-    }
+        private readonly IAuthTokenRepository _authTokenRepository = authTokenRepository;
+        public KeySecret GenerateSecret(string AudId)
+        {
+            return _authTokenRepository.GenerateSecret(AudId);
+        }
+        public string GenerateToken(KeySecret secret)
+        {
+            return _authTokenRepository.GenerateToken(secret);
+        }
         public KeySecret GetSecret(string clientId)
         {
             return _authTokenRepository.GetSecret(clientId);

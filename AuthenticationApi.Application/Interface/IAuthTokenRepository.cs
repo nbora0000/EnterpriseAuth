@@ -1,4 +1,5 @@
 using AuthenticationApi.Domain;
+using AuthenticationApi.Domain.Data;
 namespace AuthenticationApi.Application.Interface;
 public interface IAuthTokenRepository
 {

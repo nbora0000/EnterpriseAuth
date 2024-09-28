@@ -8,6 +8,7 @@ namespace AuthenticationApi.Domain.Constants
 {
     public static class ApiConstant
     {
-        public static string Issuer = "OmniTricks";
+        private static string issuer = "OmniTricks";
+        public static string Issuer { get => issuer; set => issuer = value; }
     }
 }

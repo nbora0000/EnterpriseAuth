@@ -1,20 +1,14 @@
 ﻿using AuthenticationApi.Application.Interface;
-using AuthenticationApi.Domain;
 using AuthenticationApi.Infrastructure.Data;
 using AuthenticationApi.Infrastructure.CustomLogic;
-using AuthenticationApi.Infrastructure.AuthenticationApi.Infrastructure.CustomLogic;
 using System.IdentityModel.Tokens.Jwt;
+using AuthenticationApi.Domain.Data;
 namespace AuthenticationApi.Infrastructure.Repository
 {
-    public class AuthTokenRepository : IAuthTokenRepository
+    public class AuthTokenRepository(ApplicationDbContext context, SecurityJwtToken jwtToken) : IAuthTokenRepository
     {
-        private readonly ApplicationDbContext _context;
-        private readonly JwtToken _jwtToken;
-        public AuthTokenRepository(ApplicationDbContext context,JwtToken jwtToken)
-        {
-            _context = context;
-            _jwtToken = jwtToken;
-        }
+        private readonly ApplicationDbContext _context = context;
+        private readonly SecurityJwtToken _jwtToken = jwtToken;
         public KeySecret GenerateSecret(string AudId)
         {
             KeySecret secret = Credentials.GenerateSecret(AudId);

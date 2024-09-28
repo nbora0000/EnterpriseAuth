@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NCrunch.Framework" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AuthenticationApi.Domain\AuthenticationApi.Domain.csproj" />
   </ItemGroup>
 

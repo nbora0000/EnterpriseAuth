@@ -1,13 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using AuthenticationApi.Domain;
+using AuthenticationApi.Domain.Data;
 namespace AuthenticationApi.Infrastructure.Data;
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    {
-    }
     public DbSet<KeySecret> KeySecret { get; set; }
-
-
 }
 
