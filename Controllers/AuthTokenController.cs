@@ -2,7 +2,6 @@ using AuthenticationApi.Application.Interface;
 using AuthenticationApi.Domain;
 using AuthenticationApi.Domain.Data;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 namespace AuthenticationApi.Controllers
 {
     [ApiController]
@@ -32,8 +31,7 @@ namespace AuthenticationApi.Controllers
                     TokenIssueTime = DateTime.UtcNow.ToString(),
                     TokenExpirationTime = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:TokenExpTimeMins"])).ToString()
                 };
-                string secureToken = JsonSerializer.Serialize(jwtToken);
-                return Ok(secureToken);
+                return Ok(jwtToken);
             }
             catch (Exception ex)
             {
@@ -63,7 +61,7 @@ namespace AuthenticationApi.Controllers
                 {
                     return BadRequest($"Secret for {ClientId} Not found in database");
                 }
-                return Ok(JsonSerializer.Serialize(secret));
+                return Ok(secret);
             }
             catch (Exception ex)
             {
