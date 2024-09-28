@@ -1,0 +1,34 @@
+{
+  "dependencies": {
+    "appInsights1": {
+      "type": "appInsights.sdk",
+      "dynamicId": null
+    },
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql1": {
+      "serviceConnectorResourceId": "",
+      "containerPorts": "1433:1433",
+      "secretStore": "LocalSecretsFile",
+      "containerName": "mssql",
+      "containerImage": "mcr.microsoft.com/mssql/server:2019-latest",
+      "type": "mssql.container",
+      "connectionId": "ConnectionString:DefaultConnection",
+      "dynamicId": null
+    },
+    "mssql2": {
+      "serviceConnectorResourceId": "",
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings"
+    },
+    "mssql3": {
+      "serviceConnectorResourceId": "",
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings:DefaultConnection",
+      "dynamicId": null
+    }
+  }
+}
