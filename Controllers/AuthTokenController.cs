@@ -10,14 +10,9 @@ namespace AuthenticationApi.Controllers
     {
         private readonly IAuthTokenService _authTokenService = authTokenService;
         private readonly IConfiguration _configuration = configuration;
-
-        public IActionResult GetToken([FromBody] KeySecret secret)
-        {
-            return GetToken(secret, _authTokenService);
-        }
-
+        
         [HttpPost("GenerateToken")]
-        public IActionResult GetToken([FromBody] KeySecret secret, IAuthTokenService _authTokenService)
+        public IActionResult GetToken([FromBody] KeySecret secret)
         {
             try
             {

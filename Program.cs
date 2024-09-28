@@ -34,21 +34,17 @@ builder.Services.AddAuthentication(options =>
     ValidAudience = builder.Configuration["Jwt:Audience"]
     };
 });
-builder.Services.AddSwaggerGen(c=> { c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationApi", Version = "v1" }); });
+builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthenticationApi", Version = "v1" }); });
 builder.Services.AddScoped<IAuthTokenService, AuthTokenService>();
 builder.Services.AddScoped<IAuthTokenRepository, AuthTokenRepository>();
 builder.Services.AddApplicationInsightsTelemetry();
 var app = builder.Build();
-if(app.Environment.IsDevelopment()){
-    app.UseDeveloperExceptionPage();
-}
-else{
-    app.UseExceptionHandler("/error");
-    app.UseHsts();
-}
-app.UseRouting();
+app.UseExceptionHandler("/error");
+app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.UseSwagger();
