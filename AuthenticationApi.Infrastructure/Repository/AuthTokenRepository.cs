@@ -3,6 +3,7 @@ using AuthenticationApi.Domain;
 using AuthenticationApi.Infrastructure.Data;
 using AuthenticationApi.Infrastructure.CustomLogic;
 using AuthenticationApi.Infrastructure.AuthenticationApi.Infrastructure.CustomLogic;
+using System.IdentityModel.Tokens.Jwt;
 namespace AuthenticationApi.Infrastructure.Repository
 {
     public class AuthTokenRepository : IAuthTokenRepository
@@ -27,7 +28,8 @@ namespace AuthenticationApi.Infrastructure.Repository
             KeySecret secretKey = _context.KeySecret.Find(secret.ClientId) ?? throw new NullReferenceException($"{secret} is not Present in Database");
             if (secretKey.ClientSecret == secret.ClientSecret && secretKey.ClientId == secret.ClientId && secretKey.AudId == secret.AudId)
             {
-                token = _jwtToken.SecurityToken(secret).ToString();
+                JwtSecurityToken JwtSecureToken = _jwtToken.SecurityToken(secret);
+                token = new JwtSecurityTokenHandler().WriteToken(JwtSecureToken);
             }
             return token;
         }

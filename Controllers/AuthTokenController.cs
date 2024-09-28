@@ -1,5 +1,6 @@
 using AuthenticationApi.Application.Interface;
 using AuthenticationApi.Domain;
+using AuthenticationApi.Domain.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 namespace AuthenticationApi.Controllers
@@ -9,9 +10,11 @@ namespace AuthenticationApi.Controllers
     public class AuthTokenController : ControllerBase
     {
         private readonly IAuthTokenService _authTokenService;
-        public AuthTokenController(IAuthTokenService authTokenService)
+        private readonly IConfiguration _configuration;
+        public AuthTokenController(IAuthTokenService authTokenService, IConfiguration configuration)
         {
             _authTokenService = authTokenService;
+            _configuration = configuration;
         }
         [HttpPost("GenerateToken")]
         public IActionResult GetToken([FromBody] KeySecret secret)
@@ -23,7 +26,14 @@ namespace AuthenticationApi.Controllers
                 {
                     return BadRequest("Incorrect Payload");
                 }
-                return Ok(token);
+                JwtToken jwtToken = new JwtToken
+                {
+                    Token = token,
+                    TokenIssueTime = DateTime.UtcNow.ToString(),
+                    TokenExpirationTime = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:TokenExpTimeMins"])).ToString()
+                };
+                string secureToken = JsonSerializer.Serialize(jwtToken);
+                return Ok(secureToken);
             }
             catch (Exception ex)
             {
@@ -49,7 +59,7 @@ namespace AuthenticationApi.Controllers
             try
             {
                 KeySecret secret = _authTokenService.GetSecret(ClientId);
-                if (Guid.Equals(secret.ClientId,null) && secret.ClientSecret == null && secret.AudId == null)
+                if (Guid.Equals(secret.ClientId, null) && secret.ClientSecret == null && secret.AudId == null)
                 {
                     return BadRequest($"Secret for {ClientId} Not found in database");
                 }
