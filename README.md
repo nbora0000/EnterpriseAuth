@@ -30,7 +30,7 @@ This section provides an overview of how to set up the application.
  **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/enterprise-auth-api.git
+   git clone https://github.com/nbora0000/enterprise-auth-api.git
    cd enterprise-auth-api
 ```
 # API Setup and Usage
