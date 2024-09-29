@@ -38,14 +38,17 @@ This section provides an overview of how to set up the application.
 ## Setup
 
 1. **Restore Dependencies**:
-   `dotnet restore`
-
-2. **Configure Database Connection**:
+```bash
+   dotnet restore
+```
+3. **Configure Database Connection**:
    Edit your `appsettings.json` to set up your database connection.
 
-3. **Run the Application**:
-   `dotnet run`
-   The API will be accessible at: `https://localhost:44368`.
+4. **Run the Application**:
+   ```bash
+   dotnet run
+   ```
+   The API will be accessible at: 'https://localhost:44368`.
 
 ## API Endpoints
 
@@ -53,8 +56,10 @@ This section provides an overview of how to set up the application.
 
 - **Method**: `GET`
 - **URL**: `https://localhost:44368/api/Secret/GetSecret`
-- **Headers**: 
-  - `ClientId: string`
+- **Headers**:
+  ```bash
+  ClientId: string
+  ```
 - **Description**: Retrieves a secret associated with the specified client ID.
 
 ### Generate Token
@@ -62,8 +67,9 @@ This section provides an overview of how to set up the application.
 - **Method**: `POST`
 - **URL**: `https://localhost:44368/api/AuthToken/GenerateToken`
 - **Request Body**:
+```bash
 { "clientId": "abe950cc-6d87-4955-9c0c-24b0e7d773e5", "clientSecret": "string", "audId": "string" }
-
+```
 
 - **Description**: Generates an authentication token for the specified client.
 
@@ -71,26 +77,31 @@ This section provides an overview of how to set up the application.
 
 - **Method**: `POST`
 - **URL**: `https://localhost:44368/api/Secret/GenerateSecret`
-- **Headers**: 
-- `AudId: string`
+- **Headers**:
+  ```bash
+  AudId: string
+  ```
 - **Description**: Generates a new secret associated with the specified audience ID.
 
 ## Usage Examples
 
 ### Get Secret
+```bash
 curl -X GET https://localhost:44368/api/Secret/GetSecret -H "ClientId: your-client-id"
-
+```
 
 
 ### Generate Token
+```bash
 curl -X POST https://localhost:44368/api/AuthToken/GenerateToken
 -H "Content-Type: application/json"
 -d '{ "clientId": "abe950cc-6d87-4955-9c0c-24b0e7d773e5", "clientSecret": "your-client-secret", "audId": "your-audience-id" }'
-
+```
 
 ### Generate Secret
+```bash
 curl -X POST https://localhost:44368/api/Secret/GenerateSecret -H "AudId: your-audience-id"
-
+```
 
 
 ## Error Handling
@@ -103,3 +114,7 @@ curl -X POST https://localhost:44368/api/Secret/GenerateSecret -H "AudId: your-a
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+This application code is governed by apache license
+
