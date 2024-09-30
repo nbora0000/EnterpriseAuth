@@ -116,5 +116,5 @@ curl -X POST https://localhost:44368/api/Secret/GenerateSecret -H "AudId: your-a
 Contributions are welcome! Please open an issue or submit a pull request.
 
 ## License
-This application code is governed by apache license
+This application code is governed by Apache License 2.0
 
